@@ -49,6 +49,7 @@ public class StateManager {
     private final ReadOnlyListWrapper<GroupTreeNode> activeGroups = new ReadOnlyListWrapper<>(FXCollections.observableArrayList());
     private final ObservableList<BibEntry> selectedEntries = FXCollections.observableArrayList();
     private final ObservableMap<BibDatabaseContext, ObservableList<GroupTreeNode>> selectedGroups = FXCollections.observableHashMap();
+    private static SearchQuery storedSearchQuery = null; // Global search query
     private final OptionalObjectProperty<SearchQuery> activeSearchQuery = OptionalObjectProperty.empty();
     private final ObservableMap<BibDatabaseContext, IntegerProperty> searchResultMap = FXCollections.observableHashMap();
     private final OptionalObjectProperty<Node> focusOwner = OptionalObjectProperty.empty();
@@ -59,6 +60,7 @@ public class StateManager {
 
     public StateManager() {
         activeGroups.bind(Bindings.valueAt(selectedGroups, activeDatabase.orElse(null)));
+        if (storedSearchQuery != null) activeSearchQuery.setValue(Optional.of(storedSearchQuery)); // Maintains global query between databases
     }
 
     public CustomLocalDragboard getLocalDragboard() {
@@ -122,10 +124,12 @@ public class StateManager {
 
     public void clearSearchQuery() {
         activeSearchQuery.setValue(Optional.empty());
+        storedSearchQuery = null; // Resets global query
     }
 
     public void setSearchQuery(SearchQuery searchQuery) {
         activeSearchQuery.setValue(Optional.of(searchQuery));
+        storedSearchQuery = searchQuery; // Sets global query
     }
 
     public OptionalObjectProperty<Node> focusOwnerProperty() {
