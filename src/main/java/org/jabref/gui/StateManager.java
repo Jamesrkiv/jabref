@@ -50,6 +50,7 @@ public class StateManager {
     private final ObservableList<BibEntry> selectedEntries = FXCollections.observableArrayList();
     private final ObservableMap<BibDatabaseContext, ObservableList<GroupTreeNode>> selectedGroups = FXCollections.observableHashMap();
     public static SearchQuery storedSearchQuery = null; // Global search query
+    public static Optional<BibDatabaseContext> prevDatabase = null; // Previous database
     private final OptionalObjectProperty<SearchQuery> activeSearchQuery = OptionalObjectProperty.empty();
     private final ObservableMap<BibDatabaseContext, IntegerProperty> searchResultMap = FXCollections.observableHashMap();
     private final OptionalObjectProperty<Node> focusOwner = OptionalObjectProperty.empty();
@@ -124,11 +125,13 @@ public class StateManager {
     public void clearSearchQuery() {
         activeSearchQuery.setValue(Optional.empty());
         storedSearchQuery = null; // Resets global query
+        prevDatabase = null;
     }
 
     public void setSearchQuery(SearchQuery searchQuery) {
         activeSearchQuery.setValue(Optional.of(searchQuery));
         storedSearchQuery = searchQuery; // Sets global query
+        prevDatabase = getActiveDatabase();
     }
 
     public OptionalObjectProperty<Node> focusOwnerProperty() {
