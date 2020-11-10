@@ -12,7 +12,7 @@ import org.jabref.model.entry.BibEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DatabaseSearcher { // Test push
+public class DatabaseSearcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseSearcher.class);
     private final SearchQuery query;
