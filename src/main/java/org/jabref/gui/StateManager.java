@@ -61,6 +61,7 @@ public class StateManager {
     public StateManager() {
         activeGroups.bind(Bindings.valueAt(selectedGroups, activeDatabase.orElse(null)));
         if (storedSearchQuery != null) activeSearchQuery.setValue(Optional.of(storedSearchQuery)); // Maintains global query between databases
+        System.out.println("Attempted to pull global");
     }
 
     public CustomLocalDragboard getLocalDragboard() {
@@ -125,11 +126,13 @@ public class StateManager {
     public void clearSearchQuery() {
         activeSearchQuery.setValue(Optional.empty());
         storedSearchQuery = null; // Resets global query
+        System.out.println("Global reset");
     }
 
     public void setSearchQuery(SearchQuery searchQuery) {
         activeSearchQuery.setValue(Optional.of(searchQuery));
         storedSearchQuery = searchQuery; // Sets global query
+        System.out.println("Global set");
     }
 
     public OptionalObjectProperty<Node> focusOwnerProperty() {
