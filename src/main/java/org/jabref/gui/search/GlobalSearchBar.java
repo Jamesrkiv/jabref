@@ -239,6 +239,11 @@ public class GlobalSearchBar extends HBox {
 
         // An empty search field should cause the search to be cleared.
         if (searchField.getText().isEmpty()) {
+        	if (StateManager.storedSearchQuery != null) { // Restores search from global variable
+        		currentResults.setText(StateManager.storedSearchQuery.toString());
+        		stateManager.setSearchQuery(StateManager.storedSearchQuery);
+        		return;
+        	}
             currentResults.setText("");
             setHintTooltip(null);
             stateManager.clearSearchQuery();
