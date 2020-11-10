@@ -125,7 +125,7 @@ public class StateManager {
     public void clearSearchQuery() {
         activeSearchQuery.setValue(Optional.empty());
         storedSearchQuery = null; // Resets global query
-        prevDatabase = null;
+        prevDatabase = null; // Resets previous database
     }
 
     public void setSearchQuery(SearchQuery searchQuery) {

@@ -238,7 +238,7 @@ public class GlobalSearchBar extends HBox {
         LOGGER.debug("Run search " + searchField.getText());
 
         // An empty search field should cause the search to be cleared.
-        if (searchField.getText().isEmpty() && StateManager.prevDatabase != stateManager.getActiveDatabase()) { // Checks if tab has changed
+        if (searchField.getText().isEmpty() || StateManager.prevDatabase != stateManager.getActiveDatabase()) { // Checks if tab has changed
         	if (StateManager.storedSearchQuery != null) { // Restores search from global variable
         		currentResults.setText(StateManager.storedSearchQuery.toString());
         		stateManager.setSearchQuery(StateManager.storedSearchQuery);
