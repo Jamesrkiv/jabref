@@ -241,7 +241,6 @@ public class GlobalSearchBar extends HBox {
         if (searchField.getText().isEmpty()) {
         	if (StateManager.storedSearchQuery != null) { // Restores search from global variable
         		currentResults.setText(StateManager.storedSearchQuery.toString());
-        		stateManager.setSearchQuery(StateManager.storedSearchQuery);
         		return;
         	}
             currentResults.setText("");
