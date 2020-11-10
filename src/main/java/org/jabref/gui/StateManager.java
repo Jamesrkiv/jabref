@@ -49,7 +49,8 @@ public class StateManager {
     private final ReadOnlyListWrapper<GroupTreeNode> activeGroups = new ReadOnlyListWrapper<>(FXCollections.observableArrayList());
     private final ObservableList<BibEntry> selectedEntries = FXCollections.observableArrayList();
     private final ObservableMap<BibDatabaseContext, ObservableList<GroupTreeNode>> selectedGroups = FXCollections.observableHashMap();
-    //public static SearchQuery storedSearchQuery = null; // Global search query
+    public static SearchQuery storedSearchQuery = null; // Global search query
+    public static OptionalObjectProperty<BibDatabaseContext> lastActiveDatabase = null; // For comparing to current
     private final OptionalObjectProperty<SearchQuery> activeSearchQuery = OptionalObjectProperty.empty();
     private final ObservableMap<BibDatabaseContext, IntegerProperty> searchResultMap = FXCollections.observableHashMap();
     private final OptionalObjectProperty<Node> focusOwner = OptionalObjectProperty.empty();
@@ -123,14 +124,14 @@ public class StateManager {
 
     public void clearSearchQuery() {
         activeSearchQuery.setValue(Optional.empty());
-        //storedSearchQuery = null; // Resets global query
-        //System.out.println("Global reset");
+        storedSearchQuery = null; // Resets global query
     }
 
     public void setSearchQuery(SearchQuery searchQuery) {
         activeSearchQuery.setValue(Optional.of(searchQuery));
-        //storedSearchQuery = searchQuery; // Sets global query
-        //System.out.println("Global set");
+        storedSearchQuery = searchQuery; // Sets global query
+        lastActiveDatabase = activeDatabaseProperty(); // Sets last open database
+        
     }
 
     public OptionalObjectProperty<Node> focusOwnerProperty() {
