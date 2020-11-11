@@ -131,7 +131,7 @@ public class StateManager {
     public void setSearchQuery(SearchQuery searchQuery) {
         activeSearchQuery.setValue(Optional.of(searchQuery));
         storedSearchQuery = searchQuery; // Sets global query
-        prevDatabase = getActiveDatabase();
+        prevDatabase = getActiveDatabase(); // Sets database history
     }
 
     public OptionalObjectProperty<Node> focusOwnerProperty() {
